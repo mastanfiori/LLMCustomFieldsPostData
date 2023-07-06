@@ -14,6 +14,25 @@ sap.ui.define([], function () {
                 return "";
             }
             return parseFloat(sValue).toFixed(2);
+        },
+        value: function (valu) {
+			if (valu === "" || valu === null) {
+				return true;
+			} else if (valu !== "") {
+				return false;
+			}
+
+		},
+        edit: function(data){
+            if(data === "Shipped" || data === "SHIPPED"){
+                return false;
+            }
+        },
+
+        switch: function(flag , flagg , ship){
+            if(flag === true && flagg === true || ship === "Shipped"){
+                return false;
+            }
         }
 
     };
