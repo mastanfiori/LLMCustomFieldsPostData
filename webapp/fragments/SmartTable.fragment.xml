@@ -2,17 +2,17 @@
 <smartTable:SmartTable id="ProductionOrderDetails" class="sapUiNoContentPadding" entitySet="ZC_300_PURCHASEORDERDETAILS" beforeRebindTable="onRebindTable" header="Purchase Order"
 						tableType="ResponsiveTable" useExportToExcel="true" useTablePersonalisation="true" smartFilterId="smartFilterBar" useVariantManagement="true"
 						persistencyKey="SmartTablePKey" enableAutoBinding="true" showVariantManagement="false" showRowCount="true" enableAutoColumnWidth="true"
-						requestAtLeastFields="FollowUpDate,ShippingInstruction,POPriceUnit,ConfControl,POStatus,POReuestedShipDate" ignoredFields="">
+						requestAtLeastFields="FollowUpDate,ShippingInstruction,POPriceUnit,ConfControl,POStatus,POReuestedShipDate" ignoredFields="" exportType="GW">
 						<!-- initiallyVisibleFields="PurchaseOrder,Vendor,VendorName,ExpeditorAgent,ExpeditorAgentName,PurchaseOrderItem,Material,MaterialDescription,Plant,POOrderingQuantity,OrderingUnit,ConfimedPOQty,POQuantity,POBaseunit,POItemDeliveryDate,PONetPrice,ConfirmedNetPrice,OrderingPriceUnit,SupplierInitialShipDate,SupplierEstimatedShipDate"> -->
 						<table:Table id="table" editable="true" enableColumnFreeze="true" selectionMode="Multi" rowSelectionChange="onRowSelection">
             			<table:columns>
-						<table:Column id="CIColumn1" autoResizable="true" width="120px" tooltip="{i18n>PurchaseOrder}" sortProperty="PurchaseOrder">
+						<table:Column id="CIColumn1" autoResizable="true" width="120px" tooltip="{i18n>PurchaseOrder}" sortProperty="PurchaseOrder" grouped="false">
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PurchaseOrder", "leadingProperty": "PurchaseOrder"}' />
                     </table:customData>
                     <Label id="CILabel1" text="{i18n>PurchaseOrder}" />
                     <table:template>
-                        <Text id="CIInput1"  text="{PurchaseOrder}" />
+                        <Link id="CIInput1"  text="{PurchaseOrder}" press="handleLinkPress"/>
                     </table:template>
                 </table:Column>
 
@@ -50,10 +50,11 @@
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POStatus", "leadingProperty": "POStatus"}' />
                     </table:customData>
-                    <Label id="CILabel5" text="{i18n>POStatus}" required="true"/>
+                    <Label id="CILabel5" text="{i18n>POStatus}"/>
                     <table:template>
                         <!-- <Input id="CIInput5"  value="{POStatus}" /> -->
-                        <ComboBox xmlns="sap.m" id="box0" selectedKey="{POStatus}" >
+                        	
+                        <ComboBox xmlns="sap.m" id="box0" selectedKey="{POStatus}" editable="{path:'POStatus',formatter:'.formatter.edit'}">
                             <items>
                                 <core:Item xmlns:core="sap.ui.core" key="New" text="New"  id="item0"/>
                                 <core:Item xmlns:core="sap.ui.core" key="Pending" text="Pending" id="item11"/>
@@ -72,10 +73,10 @@
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POReuestedShipDate", "leadingProperty": "POReuestedShipDate"}' />
                     </table:customData>
-                    <Label id="CILabel6" text="{i18n>POReuestedShipDate}" required="true"/>
+                    <Label id="CILabel6" text="{i18n>POReuestedShipDate}"/>
                     <table:template>
                         <!-- <Input id="CIInput6"  value="{ path: 'POReuestedShipDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }"/> -->
-                         <DatePicker id="CIDatePicker1" value="{path:'POReuestedShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" />
+                         <DatePicker id="CIDatePicker1" value="{path:'POReuestedShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" editable="{path:'POReuestedShipDate',formatter:'.formatter.value'}"/>
                     </table:template>
                 </table:Column>
 
@@ -83,10 +84,10 @@
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "SupplierInitialShipDate", "leadingProperty": "SupplierInitialShipDate"}' />
                     </table:customData>
-                    <Label id="CILabel7" text="{i18n>SupplierInitialShipDate}" required="true"/>
+                    <Label id="CILabel7" text="{i18n>SupplierInitialShipDate}"/>
                     <table:template>
                         <!-- <Input id="CIInput7"  value="{ path: 'SupplierInitialShipDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }" /> -->
-                        <DatePicker id="CIDatePicker2" value="{path:'SupplierInitialShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" />
+                        <DatePicker id="CIDatePicker2" value="{path:'SupplierInitialShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" editable="{path:'SupplierInitialShipDate',formatter:'.formatter.value'}"/>
                     </table:template>
                 </table:Column>
 
@@ -94,10 +95,10 @@
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "SupplierEstimatedShipDate", "leadingProperty": "SupplierEstimatedShipDate"}' />
                     </table:customData>
-                    <Label id="CILabel8" text="{i18n>SupplierEstimatedShipDate}" required="true"/>
+                    <Label id="CILabel8" text="{i18n>SupplierEstimatedShipDate}"/>
                     <table:template>
                         <!-- <Input id="CIInput8"  value="{ path: 'SupplierEstimatedShipDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }" /> -->
-                    <DatePicker id="CIDatePicker3" value="{path:'SupplierEstimatedShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" />
+                    <DatePicker id="CIDatePicker3" value="{path:'SupplierEstimatedShipDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" editable="{path:'POStatus',formatter:'.formatter.edit'}"/>
                     </table:template>
                 </table:Column>
 
@@ -105,10 +106,10 @@
                     <table:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "FollowUpDate", "leadingProperty": "FollowUpDate"}' />
                     </table:customData>
-                    <Label id="CILabel9" text="{i18n>FollowUpDate}" required="true"/>
+                    <Label id="CILabel9" text="{i18n>FollowUpDate}"/>
                     <table:template>
                         <!-- <Input id="CIInput9"  value="{ path: 'FollowUpDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }"/> -->
-                    <DatePicker id="CIDatePicker4" value="{path:'FollowUpDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" />
+                    <DatePicker id="CIDatePicker4" value="{path:'FollowUpDate',type: 'sap.ui.model.type.Date',formatOptions: { UTC: true } }"  change="handleChange" editable="{path:'POStatus',formatter:'.formatter.edit'}"/>
                     </table:template>
                 </table:Column>
 
@@ -118,7 +119,7 @@
                     </table:customData>
                     <Label id="CILabel10" text="{i18n>POItemDeliveryDate}" />
                     <table:template>
-                        <Text id="CIInput10"  text="{ path: 'POItemDeliveryDate', type: 'sap.ui.model.type.DateTime', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }" />
+                        <Text id="CIInput10"  text="{ path: 'POItemDeliveryDate', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true } }" />
                     </table:template>
                 </table:Column>
                 <table:Column id="CIColumn11" autoResizable="true" width="150px" tooltip="{i18n>ConfimedPOQty}" sortProperty="ConfimedPOQty">
@@ -127,7 +128,7 @@
                     </table:customData>
                     <Label id="CILabel11" text="{i18n>ConfimedPOQty}" />
                     <table:template>
-                        <Switch id="CIInput11"  state="{ConfimedPOQty}" />
+                        <Switch id="CIInput11"  state="{ConfimedPOQty}" enabled="{parts:[{path: 'ConfimedPOQty'},   {path: 'ConfirmedNetPrice'}, {path: 'POStatus'}],formatter: '.formatter.switch' }"/>
                     </table:template>
                 </table:Column>
                 <table:Column id="CIColumn12" autoResizable="true" width="150px" tooltip="{i18n>ConfirmedNetPrice}" sortProperty="ConfirmedNetPrice">
@@ -136,9 +137,46 @@
                     </table:customData>
                     <Label id="CILabel12" text="{i18n>ConfirmedNetPrice}" />
                     <table:template>
-                        <Switch id="CIInput12"  state="{ConfirmedNetPrice}" />
+                        <Switch id="CIInput12"  state="{ConfirmedNetPrice}" enabled="{parts:[{path: 'ConfimedPOQty'},   {path: 'ConfirmedNetPrice'}, {path: 'POStatus'}],formatter: '.formatter.switch' }"/>
                     </table:template>
                 </table:Column>
+                <table:Column id="CIColumn13" autoResizable="true" width="150px" tooltip="{i18n>HotFlag}" sortProperty="HotFlag">
+                    <table:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "HotFlag", "leadingProperty": "HotFlag"}' />
+                    </table:customData>
+                    <Label id="CILabel13" text="{i18n>HotFlag}" />
+                    <table:template>
+                        <Switch id="CIInput13"  state="{HotFlag}"  enabled="{path:'POStatus',formatter:'.formatter.edit'}"/>
+                    </table:template>
+                </table:Column>
+                <table:Column id="CIColumn14" autoResizable="true" width="150px" tooltip="{i18n>QCSampleQuantity}" sortProperty="QCSampleQuantity">
+                    <table:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "QCSampleQuantity", "leadingProperty": "QCSampleQuantity"}' />
+                    </table:customData>
+                    <Label id="CILabel14" text="{i18n>QCSampleQuantity}" />
+                    <table:template>
+                        <Text id="CIInput14"  text="{QCSampleQuantity}"  />
+                    </table:template>
+                </table:Column>
+                <table:Column id="CIColumn15" autoResizable="true" width="150px" tooltip="{i18n>SourceInspection}" sortProperty="SourceInspection">
+                    <table:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SourceInspection", "leadingProperty": "SourceInspection"}' />
+                    </table:customData>
+                    <Label id="CILabel15" text="{i18n>SourceInspection}" />
+                    <table:template>
+                        <Text id="CIInput15"  text="{SourceInspection}"  />
+                    </table:template>
+                </table:Column>
+                 <table:Column id="CIColumn16" autoResizable="true" width="150px" tooltip="{i18n>InspectionStock}" sortProperty="InspectionStock">
+                    <table:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InspectionStock", "leadingProperty": "InspectionStock"}' />
+                    </table:customData>
+                    <Label id="CILabel16" text="{i18n>InspectionStock}" />
+                    <table:template>
+                        <Text id="CIInput16"  text="{InspectionStock}"  />
+                    </table:template>
+                </table:Column>
+                 
 						</table:columns>
 						</table:Table>
 						</smartTable:SmartTable>
