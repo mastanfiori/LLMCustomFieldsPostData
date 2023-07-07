@@ -3,6 +3,12 @@
 						tableType="ResponsiveTable" useExportToExcel="true" useTablePersonalisation="true" smartFilterId="smartFilterBar" useVariantManagement="true"
 						persistencyKey="SmartTablePKey" enableAutoBinding="true" showVariantManagement="false" showRowCount="true" enableAutoColumnWidth="true"
 						requestAtLeastFields="FollowUpDate,ShippingInstruction,POPriceUnit,ConfControl,POStatus,POReuestedShipDate" ignoredFields="" exportType="GW">
+                         <smartTable:customToolbar>
+                         <OverflowToolbar id="Toolbar1" style="Clear">
+                         <ToolbarSpacer id="Spacer1" />
+                <Button id="PORequesition" text="{i18n>PORequsition}" press="onDispalyPO" type="Transparent" />
+                </OverflowToolbar>
+        </smartTable:customToolbar>
 						<!-- initiallyVisibleFields="PurchaseOrder,Vendor,VendorName,ExpeditorAgent,ExpeditorAgentName,PurchaseOrderItem,Material,MaterialDescription,Plant,POOrderingQuantity,OrderingUnit,ConfimedPOQty,POQuantity,POBaseunit,POItemDeliveryDate,PONetPrice,ConfirmedNetPrice,OrderingPriceUnit,SupplierInitialShipDate,SupplierEstimatedShipDate"> -->
 						<table:Table id="table" editable="true" enableColumnFreeze="true" selectionMode="Multi" rowSelectionChange="onRowSelection">
             			<table:columns>
