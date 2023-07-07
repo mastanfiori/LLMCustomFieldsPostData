@@ -150,27 +150,33 @@ sap.ui.define([
             var selectedItems = oEvent.getSource().getSelectedIndices();
 
         },
+        onSave:function(oEvt){
+            debugger;
+            var that = this;
+            var oTable = this.byId("ProductionOrderDetails");
+            var length = oTable.getTable()._getTotalRowCount();
+            var selectedLength = this.getView().byId("table").getSelectedIndices().length;
+            if(selectedLength !== 0){
+                sap.m.MessageBox.show("You have only Selected " + selectedLength + " out of total of " + length + " rows",{
+                    actions: [sap.m.MessageBox.Action.OK,sap.m.MessageBox.Action.CLOSE],
+                onClose: function (oAction) {
+                    if (oAction === sap.m.MessageBox.Action.OK) {
+                       that.onSaveUpdate();
+                    }else{
 
-        onSave: function(oEvent){
+                    }
+                }
+                });
+            }else{
+                sap.m.MessageBox.warning("Select atleaset One Row")
+            }
+
+        },
+        onSaveUpdate: function(oEvent){
             var oSelectedData = this.getView().byId("table").getSelectedIndices(),
                 items = [];
                 var sPath = "/POHeadSet"
-                // var payload = {
-                //     "PurchaseOrder":"",
-                //     "PurchaseOrderItem":"",
-                //     "POItemSet":[{
-                //         "PurchaseOrder":"",
-                //         "PurchaseOrderItem":"",
-                //         "POStatus":"",
-                //         "POReuestedShipDate":"",
-                //         "SupplierInitialShipDate":"",
-                //         "SupplierEstimatedShipDate":"",
-                //         "FollowUpDate":"",
-                //         "ConfimedPOQty":"",
-                //         "ConfirmedNetPrice":""                
-                //      }]
-                // };
-
+               
                 var payload = {},
                     itemset=[];
                     
@@ -188,7 +194,13 @@ sap.ui.define([
                         arr.SupplierInitialShipDate = obj.SupplierInitialShipDate;
                         arr.SupplierEstimatedShipDate = obj.SupplierEstimatedShipDate;
                         arr.FollowUpDate = obj.FollowUpDate;
-                        
+                        // arr.HotFlag = obj.HotFlag;
+                        var HotFlag = obj.HotFlag;
+                        if(HotFlag === false) {
+                            arr.HotFlag = ""
+                        }else{
+                            arr.HotFlag = "X"
+                        }
                         var ConfimedPOQty = obj.ConfimedPOQty;
                         if(ConfimedPOQty === false){
                             arr.ConfimedPOQty = ""
@@ -223,7 +235,8 @@ sap.ui.define([
 
                     var oSuccess = function (oData) {
                         sap.ui.core.BusyIndicator.hide();
-                        sap.m.MessageBox.show("Updated Successfully");
+                        sap.m.MessageBox.success("Updated Successfully");
+                        var that=this;
                         that.getView().byId("ProductionOrderDetails").rebindTable();
                         // this.byId("table").getBinding().refresh(true);
                     }.bind(this);
@@ -235,7 +248,60 @@ sap.ui.define([
                         error: oError
                     });
          
-        }
+        },
+        handleLinkPress: function(oEvt){
+            this.PO = oEvt.getSource().getText();
+            if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService && sap.ushell.Container.getService(
+                "CrossApplicationNavigation")){
+                    var crossAppNav = sap.ushell && sap.ushell.Container && sap.ushell.Container.getService && sap.ushell.Container.getService(
+                        "CrossApplicationNavigation");
+                        var href = (crossAppNav && crossAppNav.hrefForExternal({
+                            target: {
+                                semanticObject: "PurchaseOrder",
+                                action: "change"
+                            },
+                            params: {
+                                PurchaseOrder :this.PO
+                            },
+                                 
+                        })) || "";
+        
+                        crossAppNav.toExternal({
+                            target: {
+                                shellHash: href
+                            }
+                        });
+        
 
+                }
+        },
+        onDispalyPO: function(Event){
+            var oSelectedIndices = this.byId("table").getSelectedIndices();
+            if (oSelectedIndices.length === 1){
+                this.prodOrder = this.byId("table").getContextByIndex(oSelectedIndices[0]).getObject();
+                this.Order = this.prodOrder.PurchaseOrder;
+                this.onNavToPO();
+            }
+            else{
+                sap.m.MessageBox.show("Please Select Single Row");
+                return;
+            }
+
+        },
+
+        onNavToPO: function(){
+            if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        semanticObject: "PurchaseOrder",
+                        action: "change"
+                    },
+                    params: {
+                        PurchaseOrder: this.Order
+                    }
+                });
+            }
+        }
     });
 });
