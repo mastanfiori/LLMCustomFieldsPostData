@@ -2,7 +2,7 @@
 	<smartFilterBar:SmartFilterBar
 		id="smartFilterBar"
 		entitySet="ZC_300_PURCHASEORDERDETAILS"
-		persistencyKey="SmartFilterPKey">
+		persistencyKey="SmartFilterPKey" useToolbar="false">
 <!-- <smartFilterBar:SmartFilterBar id="smartFilterBar" smartVariant="__SVM01" useToolbar="false" entitySet="ZC_300_PURCHASEORDERDETAILS"
 				 persistencyKey="SmartFilter_Explored" assignedFiltersChanged="onAssignedFiltersChanged" showFilterConfiguration="true"
 				beforeVariantFetch="onVariantSave" afterVariantLoad="afterVariantSave" showClearOnFB="false" clear="onFilterBarClear" search="onSearch"> -->
@@ -15,42 +15,39 @@
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/>
 					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration3" key="VMAgent" index="4" label="{i18n>VMAgent}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
-					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration4" key="ExpeditorAgentName" index="5" label="{i18n>ExpeditorAgent}" groupId="_BASIC"
+					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration4" key="ExpeditorAgent" index="5" label="{i18n>ExpeditorAgent}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/>
 					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration5" key="DocumentType" index="6" label="{i18n>DocumentType}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
 					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration6" key="Material" index="7" label="{i18n>Material}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
-					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration7" key="FollowUpDate" index="8" label="{i18n>FollowUpDate}" groupId="_BASIC"
-						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/>
+					<!-- <smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration7" key="FollowUpDate" index="8" label="{i18n>FollowUpDate}" groupId="_BASIC"
+						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/> -->
+						<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration7" key="FollowUpDate" index="8" label="{i18n>FollowUpDate}" groupId="_BASIC"
+						visibleInAdvancedArea="true"
+							conditionType="{
+								module: 'sap.ui.comp.config.condition.DateRangeType',
+								ignoreTime: false,
+								operations: {
+									filter: [
+										{path: 'category', contains: 'MONTH', exclude:true},
+										{path: 'category', contains: 'QUARTER', exclude:true},
+										{path: 'key', equals: 'TO', exclude:true}
+									]
+								}
+							}"/>
 					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration8" key="Plant" index="9" label="{i18n>Plant}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
-					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration9" key="ConfControl" index="10" label="{i18n>ConfirmationControlKey}" groupId="_BASIC"
-						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/>
-					<!-- <smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration10" key="POStatus" index="11" label="{i18n>Status}" groupId="_BASIC"
+					<!-- <smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration9" key="ConfControl" index="10" label="{i18n>ConfirmationControlKey}" groupId="_BASIC"
 						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/> -->
-					<smartFilterBar:ControlConfiguration
-							key="POStatus"
-							index="10" id="MultiConbo"
-							label="{i18n>POStatus}"
-							width="300px"
-							visibleInAdvancedArea="true">
-							<smartFilterBar:customControl>
-								<ComboBox
-									id="multiComboBox"
-									selectedKey="{POStatus}"
-									selectionChange="customFieldChange">
-									<core:Item id="item1" key="New" text="New"/>
-									<core:Item id="item2" key="Pending" text="Pending"/>
-									<core:Item id="item3" key="Confirmed" text="Confirmed"/>
-									<core:Item id="item4" key="PO Delivered" text="PO Delivered"/>
-									<core:Item id="item5" key="Backorder" text="Backorder"/>
-									<core:Item id="item6" key="RDD" text="RDD"/>
-									<core:Item id="item7" key="Shipped" text="Shipped"/>
-									<core:Item id="item8" key="Quality Pending" text="Quality Pending"/>
-								</ComboBox>
-							</smartFilterBar:customControl>
-						</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="_IDEGen_controlconfiguration10" key="POStatus" index="11" label="{i18n>Status}" groupId="_BASIC"
+						width="300px" mandatory="notMandatory" visibleInAdvancedArea="true"/>
+				
                     </smartFilterBar:controlConfiguration>
 			</smartFilterBar:SmartFilterBar>
             </core:FragmentDefinition>
+
+
+
+
+			
