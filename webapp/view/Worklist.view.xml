@@ -3,7 +3,7 @@
    xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
    	xmlns:table="sap.ui.table"
     xmlns:f="sap.f" xmlns:footerbar="sap.ushell.ui.footerbar"
-	xmlns:semantic="sap.f.semantic" xmlns:core="sap.ui.core" 
+	xmlns:semantic="sap.f.semantic" xmlns:core="sap.ui.core"  xmlns:sv="sap.ui.comp.smartvariants"
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable">
     <!-- <App id="app"> -->
 
@@ -11,7 +11,10 @@
 			<!-- DynamicPage Title -->
 			<f:title>
 				<f:DynamicPageTitle>
-
+				<f:heading>
+					<sv:SmartVariantManagement id="idVariant" persistencyKey="SmartFilter_Explored" showCreateTile="true" showShare="true"
+						showExecuteOnSelection="true"/>
+				</f:heading>
 				</f:DynamicPageTitle>
 			</f:title>
 
