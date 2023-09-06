@@ -257,8 +257,8 @@ sap.ui.define([
                         "CrossApplicationNavigation");
                         var href = (crossAppNav && crossAppNav.hrefForExternal({
                             target: {
-                                semanticObject: "PurchaseOrder",
-                                action: "change"
+                                semanticObject: "ZPurchaseOrde",
+                                action: "display"
                             },
                             params: {
                                 PurchaseOrder :this.PO
@@ -289,19 +289,48 @@ sap.ui.define([
 
         },
 
+        // onNavToPO: function(){
+        //     if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
+        //         var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+        //         oCrossAppNavigator.toExternal({
+        //             target: {
+        //                 semanticObject: "ZPurchaseOrde",
+        //                 action: "display"
+        //             },
+        //             params: {
+        //                 PurchaseOrder: this.Order
+        //             }
+        //         });
+        //     }
+        // }
+
         onNavToPO: function(){
-            if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
-                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
-                oCrossAppNavigator.toExternal({
-                    target: {
-                        semanticObject: "PurchaseOrder",
-                        action: "change"
-                    },
-                    params: {
-                        PurchaseOrder: this.Order
-                    }
-                });
-            }
+            if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService && sap.ushell.Container.getService(
+                "CrossApplicationNavigation")){
+                    var crossAppNav = sap.ushell && sap.ushell.Container && sap.ushell.Container.getService && sap.ushell.Container.getService(
+                        "CrossApplicationNavigation");
+                        var href = (crossAppNav && crossAppNav.hrefForExternal({
+                            target: {
+                                semanticObject: "ZPurchaseOrde",
+                                action: "display"
+                            },
+                            params: {
+                                PurchaseOrder :this.Order,
+                                "sap-ushell-navmode": "explace"
+                            },
+                                 
+                        })) || "";
+        
+                        crossAppNav.toExternal({
+                            target: {
+                                shellHash: href
+                            }
+                        });
+                        
+                        // var sHash = crossAppNav.hrefForExternal(href);
+                        // window.open(sHash, "_blank");
+
+                }
         }
     });
 });
