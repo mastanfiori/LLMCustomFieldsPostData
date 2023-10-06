@@ -30,11 +30,22 @@ sap.ui.define([], function () {
         },
 
         switch: function(flag , flagg , ship){
-            if(flag === true && flagg === true || ship === "Shipped"){
+            if(flag === true && flagg === true || ship === "Shipped" || ship === "SHIPPED"){
                 return false;
             }
+        },
+
+       AmountCurrencyFormat : function(amount, currency) {
+            if ((!currency) && (amount === 0)) {
+                return "";
+            }
+            var FormattedAmount = sap.ui.core.format.NumberFormat.getCurrencyInstance({showMeasure: false, groupingEnabled: false}).format(amount, currency);
+            return FormattedAmount +" " + currency;
         }
 
+    // formatPRItmNum: function (vPRNum, vPRItmNum) {
+    //     return vPRNum + "/" + (vPRItmNum);
+    // }
     };
 
 });
