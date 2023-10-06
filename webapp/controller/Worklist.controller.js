@@ -140,6 +140,13 @@ sap.ui.define([
                 oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
             }
         },
+        onSelect: function(oEvt){
+            // debugger;
+            var Table = oEvt.getSource();
+            // var table = this.getView().byId("ProductionOrderDetails");
+            // this.onRebindTable();
+
+        },
         onRebindTable: function (oEvent) {
 			var mBindingParams = oEvent.getParameter("bindingParams");
 			
